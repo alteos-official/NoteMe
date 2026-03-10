@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NoteMe – Authentification</title>
 
-  <!-- Police Google Sans (Inter = alternative officielle) -->
+  <!-- Police Google-like -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       margin: 0;
       height: 100vh;
       display: flex;
@@ -20,7 +20,6 @@
       overflow: hidden;
     }
 
-    /* Halo lumineux */
     .background-blur {
       position: absolute;
       width: 650px;
@@ -32,7 +31,6 @@
       z-index: 0;
     }
 
-    /* Carte Material You */
     .auth-container {
       position: relative;
       z-index: 2;
@@ -68,7 +66,6 @@
       font-size: 0.9rem;
     }
 
-    /* Tabs */
     .tabs {
       display: flex;
       background: rgba(255,255,255,0.1);
@@ -94,7 +91,6 @@
       color: #1e3a8a;
     }
 
-    /* Formulaires */
     .form {
       display: none;
       flex-direction: column;
@@ -120,7 +116,6 @@
       box-shadow: 0 0 0 2px #3b82f6;
     }
 
-    /* Bouton */
     .btn {
       margin-top: 8px;
       padding: 12px;
@@ -139,7 +134,6 @@
       transform: translateY(-2px);
     }
 
-    /* Messages */
     .message {
       min-height: 18px;
       font-size: 0.85rem;
@@ -187,7 +181,7 @@
     const SUPABASE_URL = "https://aotjudziaqyswxdruzhn.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_XmDNK7nzK1BC8uOg16HIMg_XfsRwKyz";
 
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     // Tabs
     document.querySelectorAll(".tab").forEach(btn => {
@@ -211,7 +205,7 @@
       msg.textContent = "Connexion...";
       msg.style.color = "#fff";
 
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await client.auth.signInWithPassword({ email, password });
 
       if (error) {
         msg.textContent = error.message;
@@ -234,7 +228,7 @@
       msg.textContent = "Création du compte...";
       msg.style.color = "#fff";
 
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { error } = await client.auth.signUp({ email, password });
 
       if (error) {
         msg.textContent = error.message;
@@ -248,3 +242,4 @@
 
 </body>
 </html>
+
